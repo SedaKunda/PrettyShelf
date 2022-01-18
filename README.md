@@ -11,3 +11,4 @@ So far, it queries the [OpenLibrary API](https://openlibrary.org/dev/docs/api) t
 It was created to help me compare making apps in Swift, Dart and Kotlin.
 
 - The [Swift/iOS](https://github.com/SedaKunda/PrettyShelfSwift) version.
+- The [Kotlin](https://github.com/SedaKunda/PrettyShelfKotlin) version.
