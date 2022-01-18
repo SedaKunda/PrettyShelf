@@ -1,31 +1,79 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'book.g.dart';
+
+@JsonSerializable()
 class Book {
   List<String>? publishers;
+
+  @JsonKey(name: 'number_of_pages')
   int? numberOfPages;
+
   String? weight;
+
+  @JsonKey(name: 'physical_format')
   String? physicalFormat;
+
   String? key;
+
   List<KeyString>? authors;
+
   List<String>? subjects;
+
   List<KeyString>? languages;
+
+  @JsonKey(required: true)
   String title = '';
+
+  @JsonKey(defaultValue: '')
   String? subtitle;
+
+  @JsonKey(defaultValue: '', name: 'full_title')
   String? fullTitle;
+
   Identifiers? identifiers;
+
+  @JsonKey(defaultValue: '', name: 'isbn_13')
   List<String>? isbn13;
+
+  @JsonKey(defaultValue: '', name: 'isbn_10')
   List<String>? isbn10;
+
+  @JsonKey(name: 'publish_date')
   String? publishDate;
+
+  @JsonKey(name: 'oclc_numbers')
   List<String>? oclcNumbers;
+
   List<KeyString>? works;
+
   KeyString? type;
+
+  @JsonKey(name: 'physical_dimensions')
   String? physicalDimensions;
+
+  @JsonKey(defaultValue: 0)
   List<int>? covers;
+
   String? ocaid;
+
+  @JsonKey(defaultValue: '')
   List<String>? lccn;
+
+  @JsonKey(defaultValue: '', name: 'lc_classifications')
   List<String>? lcClassifications;
+
+  @JsonKey(defaultValue: '', name: 'source_records')
   List<String>? sourceRecords;
+
+  @JsonKey(name: 'latest_revision')
   int? latestRevision;
+
   int? revision;
+
   Created? created;
+
+  @JsonKey(name: 'last_modified')
   Created? lastModified;
 
   Book(
@@ -58,98 +106,8 @@ class Book {
       this.created,
       this.lastModified});
 
-  Book.fromJson(Map<String, dynamic> json) {
-    publishers = json['publishers']?.cast<String>();
-    numberOfPages = json['number_of_pages'];
-    weight = json['weight'];
-    physicalFormat = json['physical_format'];
-    key = json['key'];
-    if (json['authors'] != null) {
-      authors = <KeyString>[];
-      json['authors'].forEach((v) {
-        authors!.add(KeyString.fromJson(v));
-      });
-    }
-    subjects = json['subjects']?.cast<String>();
-    if (json['languages'] != null) {
-      languages = <KeyString>[];
-      json['languages'].forEach((v) {
-        languages!.add(KeyString.fromJson(v));
-      });
-    }
-    title = json['title'];
-    subtitle = json['subtitle'];
-    fullTitle = json['full_title'];
-    identifiers = json['identifiers'] != null ? Identifiers.fromJson(json['identifiers']) : null;
-    isbn13 = json['isbn_13']?.cast<String>();
-    isbn10 = json['isbn_10']?.cast<String>();
-    publishDate = json['publish_date'];
-    oclcNumbers = json['oclc_numbers']?.cast<String>();
-    if (json['works'] != null) {
-      works = <KeyString>[];
-      json['works'].forEach((v) {
-        works!.add(KeyString.fromJson(v));
-      });
-    }
-    type = json['type'] != null ? KeyString.fromJson(json['type']) : null;
-    physicalDimensions = json['physical_dimensions'];
-    covers = json['covers']?.cast<int>();
-    ocaid = json['ocaid'];
-    lccn = json['lccn']?.cast<String>();
-    lcClassifications = json['lc_classifications']?.cast<String>();
-    sourceRecords = json['source_records']?.cast<String>();
-    latestRevision = json['latest_revision'];
-    revision = json['revision'];
-    created = json['created'] != null ? Created.fromJson(json['created']) : null;
-    lastModified = json['last_modified'] != null ? Created.fromJson(json['last_modified']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['publishers'] = publishers;
-    data['number_of_pages'] = numberOfPages;
-    data['weight'] = weight;
-    data['physical_format'] = physicalFormat;
-    data['key'] = key;
-    if (authors != null) {
-      data['authors'] = authors!.map((v) => v.toJson()).toList();
-    }
-    data['subjects'] = subjects;
-    if (languages != null) {
-      data['languages'] = languages!.map((v) => v.toJson()).toList();
-    }
-    data['title'] = title;
-    data['subtitle'] = subtitle;
-    data['full_title'] = fullTitle;
-    if (identifiers != null) {
-      data['identifiers'] = identifiers!.toJson();
-    }
-    data['isbn_13'] = isbn13;
-    data['isbn_10'] = isbn10;
-    data['publish_date'] = publishDate;
-    data['oclc_numbers'] = oclcNumbers;
-    if (works != null) {
-      data['works'] = works!.map((v) => v.toJson()).toList();
-    }
-    if (type != null) {
-      data['type'] = type!.toJson();
-    }
-    data['physical_dimensions'] = physicalDimensions;
-    data['covers'] = covers;
-    data['ocaid'] = ocaid;
-    data['lccn'] = lccn;
-    data['lc_classifications'] = lcClassifications;
-    data['source_records'] = sourceRecords;
-    data['latest_revision'] = latestRevision;
-    data['revision'] = revision;
-    if (created != null) {
-      data['created'] = created!.toJson();
-    }
-    if (lastModified != null) {
-      data['last_modified'] = lastModified!.toJson();
-    }
-    return data;
-  }
+  factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+  Map<String, dynamic> toJson() => _$BookToJson(this);
 }
 
 class KeyString {
