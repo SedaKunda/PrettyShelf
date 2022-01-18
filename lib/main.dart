@@ -54,6 +54,7 @@ class MiddleSection extends StatefulWidget {
 
 class MiddleSectionState extends State<MiddleSection> {
   Book display = Book(title: '');
+  bool _isVisible = false;
   final _formKey = GlobalKey<FormState>();
   final myController = TextEditingController();
   var urlString = 'openlibrary.org';
@@ -63,14 +64,16 @@ class MiddleSectionState extends State<MiddleSection> {
     return Expanded(child: FutureBuilder<List<Book>>(builder: (context, snapshot) {
       return Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Title: ${display.title}'),
-              Text('Classification: ${display.subjects.toString()}'),
-              Text('Publisher: ${display.publishers}'),
-            ],
-          ));
+          child: Visibility(
+              visible: _isVisible,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Title: ${display.title}'),
+                  Text('Classification: ${display.subjects.toString()}'),
+                  Text('Publisher: ${display.publishers}'),
+                ],
+              )));
     }));
   }
 
@@ -81,9 +84,9 @@ class MiddleSectionState extends State<MiddleSection> {
       var jsonResponse = Book.fromJson(convert.jsonDecode(response.body));
       setState(() {
         display = jsonResponse;
+        _isVisible = true;
       });
     } else {
-      print('failed ');
       throw Exception('Failed to load books');
     }
   }

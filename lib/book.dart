@@ -52,7 +52,7 @@ class Book {
   @JsonKey(name: 'physical_dimensions')
   String? physicalDimensions;
 
-  @JsonKey(defaultValue: 0)
+  @JsonKey(defaultValue: [])
   List<int>? covers;
 
   String? ocaid;
